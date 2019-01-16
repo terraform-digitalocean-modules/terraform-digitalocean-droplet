@@ -3,11 +3,6 @@ variable "backups" {
   default     = false
 }
 
-variable "block_storage_filesystem_label" {
-  description = "(Optional) Initial filesystem label for the block storage volume."
-  default     = ""
-}
-
 variable "block_storage_filesystem_type" {
   description = "(Optional) Initial filesystem type (xfs or ext4) for the block storage volume."
   default     = "xfs"
@@ -15,17 +10,22 @@ variable "block_storage_filesystem_type" {
 
 variable "block_storage_size" {
   description = "(Required) The size of the block storage volume in GiB. If updated, can only be expanded."
-  default     = 40
-}
-
-variable "block_storage_snapshot_id" {
-  description = "(Optional) The ID of an existing volume snapshot from which the new volume will be created. If supplied, the region and size will be limitied on creation to that of the referenced snapshot"
-  default     = ""
+  default     = 0
 }
 
 variable "custom_image" {
   description = "Whether the image is custom or not (an official image)"
   default     = "0"
+}
+
+variable "domain_external" {
+  description = "Domain name to construct FQDN from (DigitalOcean configures PTR record if zone is hosted by them)"
+  default     = ""
+}
+
+variable "droplet_count" {
+  description = "The number of droplets / other resources to create"
+  default     = 1
 }
 
 variable "droplet_name" {
@@ -62,11 +62,6 @@ variable "monitoring" {
 variable "number_format" {
   description = "The number format used to output."
   default     = "%02d"
-}
-
-variable "number_of_droplets" {
-  description = "The number of droplets / other resources to create"
-  default     = 1
 }
 
 variable "private_networking" {
@@ -115,15 +110,5 @@ variable "tags" {
 
 variable "user_data" {
   description = "(Optional) - A string of the desired User Data for the Droplet."
-  default     = ""
-}
-
-variable "volume_ids" {
-  description = "(Optional) - A list of the IDs of each block storage volume to be attached to the Droplet."
-  default     = ""
-}
-
-variable "domain_external" {
-  description = "Domain name to construct FQDN from (DigitalOcean configures PTR record if zone is hosted by them)"
-  default     = ""
+  default     = "true"
 }

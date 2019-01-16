@@ -1,7 +1,7 @@
 locals {
   droplet_id                   = "${compact(concat(digitalocean_droplet.droplet.*.id, list("")))}"
   droplet_ipv4_address         = "${compact(concat(digitalocean_droplet.droplet.*.ipv4_address, list("")))}"
-  droplet_ipv4_address_private = "${compact(concat(digitalocean_droplet.droplet.*.ipv4_address_pivate, list("")))}"
+  droplet_ipv4_address_private = "${compact(concat(digitalocean_droplet.droplet.*.ipv4_address_private, list("")))}"
   droplet_ipv6_address         = "${compact(concat(digitalocean_droplet.droplet.*.ipv6_address, list("")))}"
   droplet_ipv6_address_private = "${compact(concat(digitalocean_droplet.droplet.*.ipv6_address_private, list("")))}"
   droplet_region               = "${compact(concat(digitalocean_droplet.droplet.*.region, list("")))}"
@@ -11,7 +11,6 @@ locals {
   droplet_tags                 = "${compact(concat(flatten(digitalocean_droplet.droplet.*.tags), list("")))}"
   volume_id                    = "${compact(concat(digitalocean_volume.volume.*.id, list("")))}"
   volume_filesystem_type       = "${compact(concat(digitalocean_volume.volume.*.initial_filesystem_type, list("")))}"
-  volume_filesystem_label      = "${compact(concat(digitalocean_volume.volume.*.initial_filesystem_label, list("")))}"
   volume_droplet_ids           = "${compact(concat(flatten(digitalocean_volume.volume.*.droplet_ids), list("")))}"
   volume_attachment_id         = "${compact(concat(digitalocean_volume_attachment.volume_attachment.*.id, list("")))}"
 }
@@ -74,11 +73,6 @@ output "volume_id" {
 output "filesystem_type" {
   description = "List of initial filesystem types of Volumes"
   value       = ["${local.volume_filesystem_type}"]
-}
-
-output "filesystem_label" {
-  description = "List of initial filesystem labels of Volumes"
-  value       = ["${local.volume_filesystem_label}"]
 }
 
 output "droplet_ids" {
