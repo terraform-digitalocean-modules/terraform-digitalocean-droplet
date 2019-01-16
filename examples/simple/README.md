@@ -27,7 +27,7 @@ Run `terraform destroy` when you don't need these resources.
 | Name | Description |
 |------|-------------|
 | db\_ids | List of IDs of DB Droplets |
-| db\_ipv4\_address\_private | List of IPv4 addresses of db Droplets |
+| db\_ipv4\_address\_private | List of IPv4 addresses of DB Droplets |
 | db\_tags | List of tags of DB Droplets |
 | db\_volume\_attachment\_id | List of volume attachment IDs of DB Droplets |
 | web\_ids | List of IDs of web Droplets |

@@ -20,6 +20,21 @@ output "droplet_id" {
   value       = ["${local.droplet_id}"]
 }
 
+output "droplet_ids" {
+  description = "List of associated Droplet IDs of Volumes"
+  value       = ["${local.volume_droplet_ids}"]
+}
+
+output "filesystem_type" {
+  description = "List of initial filesystem types of Volumes"
+  value       = ["${local.volume_filesystem_type}"]
+}
+
+output "image" {
+  description = "List of images of Droplets"
+  value       = ["${local.droplet_image}"]
+}
+
 output "ipv4_address" {
   description = "List of public IPv4 addresses assigned to the Droplets"
   value       = ["${local.droplet_ipv4_address}"]
@@ -40,14 +55,14 @@ output "ipv6_address_private" {
   value       = ["${local.droplet_ipv6_address_private}"]
 }
 
-output "region" {
-  description = "List of regions of Droplets"
-  value       = ["${local.droplet_region}"]
-}
-
 output "name" {
   description = "List of names of Droplets"
   value       = ["${local.droplet_name}"]
+}
+
+output "region" {
+  description = "List of regions of Droplets"
+  value       = ["${local.droplet_region}"]
 }
 
 output "size" {
@@ -55,32 +70,17 @@ output "size" {
   value       = ["${local.droplet_size}"]
 }
 
-output "image" {
-  description = "List of images of Droplets"
-  value       = ["${local.droplet_image}"]
-}
-
 output "tags" {
   description = "List of tags of Droplets"
   value       = ["${local.droplet_tags}"]
 }
 
-output "volume_id" {
-  description = "List of IDs of Volumes"
-  value       = ["${local.volume_id}"]
-}
-
-output "filesystem_type" {
-  description = "List of initial filesystem types of Volumes"
-  value       = ["${local.volume_filesystem_type}"]
-}
-
-output "droplet_ids" {
-  description = "List of associated Droplet IDs of Volumes"
-  value       = ["${local.volume_droplet_ids}"]
-}
-
 output "volume_attachment_id" {
   description = "List of IDs of Volume Attachments"
   value       = ["${local.volume_attachment_id}"]
+}
+
+output "volume_id" {
+  description = "List of IDs of Volumes"
+  value       = ["${local.volume_id}"]
 }
