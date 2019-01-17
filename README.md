@@ -4,6 +4,7 @@ on DigitalOcean.
 
 These types of resources are used:
 * [DigitalOcean Droplet](https://www.terraform.io/docs/providers/do/r/droplet.html)
+* [DigitalOcean DNS record](https://www.terraform.io/docs/providers/do/r/record.html)
 * [DigitalOcean Image](https://www.terraform.io/docs/providers/do/d/image.html)
 * [DigitalOcean Volume](https://www.terraform.io/docs/providers/do/r/volume.html)
 * [DigitalOcean Volume Attachment](https://www.terraform.io/docs/providers/do/r/volume_attachment.html)
@@ -16,6 +17,7 @@ These types of resources are used:
 Some examples can be found in this repository:
 * [Simple](examples/simple)
 * [Load Balancer](examples/loadbalancer)
+* [DNS](examples/dns)
 
 **Note** The examples may create resources which can cost money.
 Run `terraform destroy` when you don't need these resources.
