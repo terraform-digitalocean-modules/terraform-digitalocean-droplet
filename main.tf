@@ -117,12 +117,14 @@ resource "digitalocean_record" "private_a" {
   value  = "${element(digitalocean_droplet.droplet.*.ipv4_address_private, count.index)}"
 }
 
-// Private DNS AAAA Record
-resource "digitalocean_record" "private_aaaa" {
-  count = "${var.private_networking > 0 && var.ipv6 > 0 && var.private_domain != "" ? var.droplet_count : 0}"
+// Private DNS AAAA Record - Not supported somewhere:
+// https://github.com/terraform-providers/terraform-provider-digitalocean/issues/181
+// resource "digitalocean_record" "private_aaaa" {
+//   count = "${var.private_networking > 0 && var.ipv6 > 0 && var.private_domain != "" ? var.droplet_count : 0}"
+//
+//   domain = "${var.private_domain}"
+//   type   = "AAAA"
+//   name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
+//   value  = "${element(digitalocean_droplet.droplet.*.ipv6_address_private, count.index)}"
+// }
 
-  domain = "${var.private_domain}"
-  type   = "AAAA"
-  name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
-  value  = "${element(digitalocean_droplet.droplet.*.ipv6_address_private, count.index)}"
-}

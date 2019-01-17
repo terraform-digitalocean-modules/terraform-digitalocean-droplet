@@ -81,7 +81,6 @@ Run `terraform destroy` when you don't need these resources.
 | loadbalancer\_ip | IP address of the loadbalancer |
 | name | List of names of Droplets |
 | private\_a | List of Droplet private DNS A record FQDNs. |
-| private\_aaaa | List of Droplet private DNS AAAA record FQDNs. |
 | public\_a | List of Droplet public DNS A record FQDNs. |
 | public\_aaaa | List of Droplet public DNS AAAA record FQDNs. |
 | region | List of regions of Droplets |

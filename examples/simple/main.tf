@@ -25,4 +25,5 @@ module "web" {
   floating_ip        = true
   block_storage_size = 5
   tags               = ["${digitalocean_tag.ENV_example.id}", "${digitalocean_tag.ROLE_web.id}"]
+  user_data          = "${file("user-data.web")}"
 }

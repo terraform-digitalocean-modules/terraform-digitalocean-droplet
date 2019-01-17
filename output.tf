@@ -13,13 +13,14 @@ locals {
   loadbalancer_id              = "${compact(concat(digitalocean_loadbalancer.loadbalancer.*.id, list("")))}"
   loadbalancer_ip              = "${compact(concat(digitalocean_loadbalancer.loadbalancer.*.ip, list("")))}"
   private_a                    = "${compact(concat(digitalocean_record.private_a.*.fqdn, list("")))}"
-  private_aaaa                 = "${compact(concat(digitalocean_record.private_aaaa.*.fqdn, list("")))}"
-  public_a                     = "${compact(concat(digitalocean_record.public_a.*.fqdn, list("")))}"
-  public_aaaa                  = "${compact(concat(digitalocean_record.public_aaaa.*.fqdn, list("")))}"
-  volume_id                    = "${compact(concat(digitalocean_volume.volume.*.id, list("")))}"
-  volume_filesystem_type       = "${compact(concat(digitalocean_volume.volume.*.initial_filesystem_type, list("")))}"
-  volume_droplet_ids           = "${compact(concat(flatten(digitalocean_volume.volume.*.droplet_ids), list("")))}"
-  volume_attachment_id         = "${compact(concat(digitalocean_volume_attachment.volume_attachment.*.id, list("")))}"
+
+  //  private_aaaa                 = "${compact(concat(digitalocean_record.private_aaaa.*.fqdn, list("")))}"
+  public_a               = "${compact(concat(digitalocean_record.public_a.*.fqdn, list("")))}"
+  public_aaaa            = "${compact(concat(digitalocean_record.public_aaaa.*.fqdn, list("")))}"
+  volume_id              = "${compact(concat(digitalocean_volume.volume.*.id, list("")))}"
+  volume_filesystem_type = "${compact(concat(digitalocean_volume.volume.*.initial_filesystem_type, list("")))}"
+  volume_droplet_ids     = "${compact(concat(flatten(digitalocean_volume.volume.*.droplet_ids), list("")))}"
+  volume_attachment_id   = "${compact(concat(digitalocean_volume_attachment.volume_attachment.*.id, list("")))}"
 }
 
 output "droplet_id" {
@@ -87,10 +88,10 @@ output "private_a" {
   value       = ["${local.private_a}"]
 }
 
-output "private_aaaa" {
-  description = "List of Droplet private DNS AAAA record FQDNs."
-  value       = ["${local.private_aaaa}"]
-}
+// output "private_aaaa" {
+//   description = "List of Droplet private DNS AAAA record FQDNs."
+//   value       = ["${local.private_aaaa}"]
+// }
 
 output "public_a" {
   description = "List of Droplet public DNS A record FQDNs."
