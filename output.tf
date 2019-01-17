@@ -11,7 +11,7 @@ locals {
   droplet_tags                 = "${compact(concat(flatten(digitalocean_droplet.droplet.*.tags), list("")))}"
   floating_ip_address          = "${compact(concat(digitalocean_floating_ip.floating_ip.*.ip_address, list("")))}"
   loadbalancer_id              = "${element(digitalocean_loadbalancer.loadbalancer.*.id, 0)}"
-  loadbalancer_ip              = "${element(digitalocean_loadbalancer.loadbalancer.*.ip, 0}"
+  loadbalancer_ip              = "${element(digitalocean_loadbalancer.loadbalancer.*.ip, 0)}"
   private_a                    = "${compact(concat(digitalocean_record.private_a.*.fqdn, list("")))}"
   private_aaaa                 = "${compact(concat(digitalocean_record.private_aaaa.*.fqdn, list("")))}"
   public_a                     = "${compact(concat(digitalocean_record.public_a.*.fqdn, list("")))}"
