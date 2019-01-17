@@ -10,8 +10,8 @@ locals {
   droplet_image                = "${compact(concat(digitalocean_droplet.droplet.*.image, list("")))}"
   droplet_tags                 = "${compact(concat(flatten(digitalocean_droplet.droplet.*.tags), list("")))}"
   floating_ip_address          = "${compact(concat(digitalocean_floating_ip.floating_ip.*.ip_address, list("")))}"
-  loadbalancer_id              = "${element(digitalocean_loadbalancer.loadbalancer.*.id, 0)}"
-  loadbalancer_ip              = "${element(digitalocean_loadbalancer.loadbalancer.*.ip, 0)}"
+  loadbalancer_id              = "${compact(concat(digitalocean_loadbalancer.loadbalancer.*.id, list("")))}"
+  loadbalancer_ip              = "${compact(concat(digitalocean_loadbalancer.loadbalancer.*.ip, list("")))}"
   private_a                    = "${compact(concat(digitalocean_record.private_a.*.fqdn, list("")))}"
   private_aaaa                 = "${compact(concat(digitalocean_record.private_aaaa.*.fqdn, list("")))}"
   public_a                     = "${compact(concat(digitalocean_record.public_a.*.fqdn, list("")))}"
@@ -69,12 +69,12 @@ output "ipv6_address_private" {
 
 output "loadbalancer_id" {
   description = "ID of the loadbalancer"
-  value       = "${local.loadbalancer_ip}"
+  value       = ["${local.loadbalancer_ip}"]
 }
 
 output "loadbalancer_ip" {
   description = "IP address of the loadbalancer"
-  value       = "${local.loadbalancer_ip}"
+  value       = ["${local.loadbalancer_ip}"]
 }
 
 output "name" {
