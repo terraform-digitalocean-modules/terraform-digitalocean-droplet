@@ -1,6 +1,6 @@
 # terraform-digitalocean-droplet
-Terraform module which creates droplet(s) and optionally, block storage volumes
-on DigitalOcean.
+Terraform module which creates Droplet(s) and optionally, Block Storage Volumes,
+Floating IPs, Load Balancers and DNS Records on DigitalOcean.
 
 These types of resources are used:
 * [DigitalOcean Droplet](https://www.terraform.io/docs/providers/do/r/droplet.html)

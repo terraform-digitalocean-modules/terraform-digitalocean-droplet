@@ -15,7 +15,7 @@ $ terraform apply
 Now visit your Load Balancer IP in a browser and refresh. After a few minutes
 you should see the requests are sent to each Droplet in a round-robin fashion.
 
-Note that this example may create resources which can cost money.
+**Note** that this example may create resources which can cost money.
 Run `terraform destroy` when you don't need these resources.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

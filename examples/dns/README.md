@@ -17,12 +17,16 @@ $ terraform apply
 Now visit your Load Balancer IP in a browser and refresh. After a few minutes
 you should see the requests are sent to each Droplet in a round-robin fashion.
 
-You can lookup a DNS record like:
+**Note** DNS records will not be propagated to the internet (so won't resolve)
+until you have updated your NS records with your registrar. For testing purposes
+you can resolve addresses by targeting a DigitalOcean Name Server with dig.
+Example:
+
 ```
 dig `terraform output -json public_hostnames | jq -r .value[0]` @ns1.digitalocean.com
 ```
 
-Note that this example may create resources which can cost money.
+**Note** that this example may create resources which can cost money.
 Run `terraform destroy` when you don't need these resources.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
