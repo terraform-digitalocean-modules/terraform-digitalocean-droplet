@@ -35,7 +35,7 @@ variable "block_storage_size" {
 
 variable "custom_image" {
   description = "Whether the image is custom or not (an official image)"
-  default     = "0"
+  default     = false
 }
 
 variable "domain_external" {
@@ -132,7 +132,7 @@ variable "loadbalancer_name" {
 
 variable "loadbalancer_redirect_http_to_https" {
   description = "(Optional) A boolean value indicating whether HTTP requests to the Load Balancer on port 80 will be redirected to HTTPS on port 443."
-  default     = "false"
+  default     = false
 }
 
 variable "loadbalancer_sticky_sessions" {
@@ -168,7 +168,7 @@ variable "region" {
 
 variable "resize_disk" {
   description = "(Optional) Boolean controlling whether to increase the disk size when resizing a Droplet. It defaults to true. When set to false, only the Droplet's RAM and CPU will be resized. Increasing a Droplet's disk size is a permanent change. Increasing only RAM and CPU is reversible."
-  default     = "true"
+  default     = true
 }
 
 variable "sizes" {
@@ -202,5 +202,5 @@ variable "tags" {
 
 variable "user_data" {
   description = "(Optional) - A string of the desired User Data for the Droplet."
-  default     = "true"
+  default     = true
 }

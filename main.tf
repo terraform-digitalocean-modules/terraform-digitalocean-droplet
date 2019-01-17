@@ -1,6 +1,12 @@
 // Lookup image to get id
-data "digitalocean_image" "default" {
-  slug = "${var.image_name}"
+data "digitalocean_image" "official" {
+  count = "${var.custom_image > 0 ? 0 : 1}"
+  slug  = "${var.image_name}"
+}
+
+data "digitalocean_image" "custom" {
+  count = "${var.custom_image > 0 ? 1 : 0}"
+  name  = "${var.image_name}"
 }
 
 resource "digitalocean_tag" "default_tag" {
@@ -11,7 +17,7 @@ resource "digitalocean_tag" "default_tag" {
 resource "digitalocean_droplet" "droplet" {
   count = "${var.droplet_count}"
 
-  image = "${coalesce(var.image_id, data.digitalocean_image.default.image)}"
+  image = "${coalesce(var.image_id, element(coalescelist(data.digitalocean_image.custom.*.image, data.digitalocean_image.official.*.image), 0))}"
   name  = "${var.domain_external != "" ? format("%s-%s.%s", var.droplet_name, format(var.number_format, count.index+1), var.domain_external) : format("%s-%s", var.droplet_name, format(var.number_format, count.index+1))}"
 
   region = "${var.region}"

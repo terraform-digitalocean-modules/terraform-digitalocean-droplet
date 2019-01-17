@@ -4,6 +4,7 @@ on DigitalOcean.
 
 These types of resources are used:
 * [DigitalOcean Droplet](https://www.terraform.io/docs/providers/do/r/droplet.html)
+* [DigitalOcean Image](https://www.terraform.io/docs/providers/do/d/image.html)
 * [DigitalOcean Volume](https://www.terraform.io/docs/providers/do/r/volume.html)
 * [DigitalOcean Volume Attachment](https://www.terraform.io/docs/providers/do/r/volume_attachment.html)
 * [DigitalOcean Floating IP](https://www.terraform.io/docs/providers/do/r/floating_ip.html)
@@ -11,6 +12,13 @@ These types of resources are used:
 * [DigitalOcean Load Balancer](https://www.terraform.io/docs/providers/do/r/loadbalancer.html)
 * [DigitalOcean Tag](https://www.terraform.io/docs/providers/do/r/tag.html)
 
+## Usage Examples
+Some examples can be found in this repository:
+* [Simple](examples/simple)
+* [Load Balancer](examples/loadbalancer)
+
+**Note** The examples may create resources which can cost money.
+Run `terraform destroy` when you don't need these resources.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
@@ -24,7 +32,7 @@ These types of resources are used:
 | block\_storage\_filesystem\_type | (Optional) Initial filesystem type (xfs or ext4) for the block storage volume. | string | `xfs` | no |
 | block\_storage\_name | (Optional) Override filesystem name for the block storage volume. | string | `` | no |
 | block\_storage\_size | (Required) The size of the block storage volume in GiB. If updated, can only be expanded. | string | `0` | no |
-| custom\_image | Whether the image is custom or not (an official image) | string | `0` | no |
+| custom\_image | Whether the image is custom or not (an official image) | string | `false` | no |
 | domain\_external | Domain name to construct FQDN from (DigitalOcean configures PTR record if zone is hosted by them) | string | `` | no |
 | droplet\_count | The number of droplets / other resources to create | string | `1` | no |
 | droplet\_name | The name of the droplet. If more than one droplet it is appended with the count, examples: stg-web, stg-web-01, stg-web-02 | string | - | yes |
