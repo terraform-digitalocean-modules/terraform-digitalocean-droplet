@@ -3,9 +3,29 @@ variable "backups" {
   default     = false
 }
 
+variable "block_storage_attach" {
+  description = "(Optional) Whether to attach the volume using Terraform or not."
+  default     = true
+}
+
+variable "block_storage_count" {
+  description = "(Optional) A count of block storage volume resources to create."
+  default     = ""
+}
+
+variable "block_storage_filesystem_label" {
+  description = "(Optional) Initial filesystem label for the block storage volume."
+  default     = "data"
+}
+
 variable "block_storage_filesystem_type" {
   description = "(Optional) Initial filesystem type (xfs or ext4) for the block storage volume."
   default     = "xfs"
+}
+
+variable "block_storage_name" {
+  description = "(Optional) Override filesystem name for the block storage volume."
+  default     = ""
 }
 
 variable "block_storage_size" {
@@ -37,6 +57,21 @@ variable "droplet_size" {
   description = "the size slug of a droplet size"
   type        = "string"
   default     = "micro"
+}
+
+variable "floating_ip" {
+  description = "(Optional) Boolean to control whether floating IPs should be created."
+  default     = false
+}
+
+variable "floating_ip_assign" {
+  description = "(Optional) Boolean controlling whether floatin IPs should be assigned to instances with Terraform."
+  default     = true
+}
+
+variable "floating_ip_count" {
+  description = "Number of floating IPs to create."
+  default     = ""
 }
 
 variable "image_id" {

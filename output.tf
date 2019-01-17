@@ -9,6 +9,7 @@ locals {
   droplet_size                 = "${compact(concat(digitalocean_droplet.droplet.*.size, list("")))}"
   droplet_image                = "${compact(concat(digitalocean_droplet.droplet.*.image, list("")))}"
   droplet_tags                 = "${compact(concat(flatten(digitalocean_droplet.droplet.*.tags), list("")))}"
+  floating_ip_ip_address       = "${compact(concat(digitalocean_floating_ip.floating_ip.*.ip_address, list("")))}"
   volume_id                    = "${compact(concat(digitalocean_volume.volume.*.id, list("")))}"
   volume_filesystem_type       = "${compact(concat(digitalocean_volume.volume.*.initial_filesystem_type, list("")))}"
   volume_droplet_ids           = "${compact(concat(flatten(digitalocean_volume.volume.*.droplet_ids), list("")))}"
@@ -28,6 +29,11 @@ output "droplet_ids" {
 output "filesystem_type" {
   description = "List of initial filesystem types of Volumes"
   value       = ["${local.volume_filesystem_type}"]
+}
+
+output "floating_ip_address" {
+  description = "List of floating IP addresses created"
+  value       = ["${local.floating_ip_ip_address}"]
 }
 
 output "image" {
