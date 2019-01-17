@@ -15,9 +15,9 @@ These types of resources are used:
 
 ## Usage Examples
 Some examples can be found in this repository:
-* [Simple](examples/simple)
-* [Load Balancer](examples/loadbalancer)
-* [DNS](examples/dns)
+* [Simple](https://github.com/terraform-digitalocean-modules/terraform-digitalocean-droplet/tree/master/examples/simple)
+* [Load Balancer](https://github.com/terraform-digitalocean-modules/terraform-digitalocean-droplet/tree/master/examples/loadbalancer)
+* [DNS](https://github.com/terraform-digitalocean-modules/terraform-digitalocean-droplet/tree/master/examples/dns)
 
 **Note** that examples may create resources which can cost money.
 Run `terraform destroy` when you don't need these resources.
