@@ -201,6 +201,16 @@ variable "tags" {
 }
 
 variable "user_data" {
-  description = "(Optional) - A string of the desired User Data for the Droplet."
-  default     = true
+  description = "(Optional) A string of the desired User Data for the Droplet."
+  default     = "exit 0"
+}
+
+variable "public_domain" {
+  description = "(Optional) String containing the public DNS domain to create a record for the Droplets in."
+  default     = ""
+}
+
+variable "private_domain" {
+  description = "(Optional) String containing the private DNS domain to create a record for the Droplets in."
+  default     = ""
 }

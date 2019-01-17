@@ -12,6 +12,10 @@ locals {
   floating_ip_address          = "${compact(concat(digitalocean_floating_ip.floating_ip.*.ip_address, list("")))}"
   loadbalancer_id              = "${digitalocean_loadbalancer.loadbalancer.id}"
   loadbalancer_ip              = "${digitalocean_loadbalancer.loadbalancer.ip}"
+  private_a                    = "${compact(concat(digitalocean_record.private_a.*.fqdn, list("")))}"
+  private_aaaa                 = "${compact(concat(digitalocean_record.private_aaaa.*.fqdn, list("")))}"
+  public_a                     = "${compact(concat(digitalocean_record.public_a.*.fqdn, list("")))}"
+  public_aaaa                  = "${compact(concat(digitalocean_record.public_aaaa.*.fqdn, list("")))}"
   volume_id                    = "${compact(concat(digitalocean_volume.volume.*.id, list("")))}"
   volume_filesystem_type       = "${compact(concat(digitalocean_volume.volume.*.initial_filesystem_type, list("")))}"
   volume_droplet_ids           = "${compact(concat(flatten(digitalocean_volume.volume.*.droplet_ids), list("")))}"
@@ -76,6 +80,26 @@ output "loadbalancer_ip" {
 output "name" {
   description = "List of names of Droplets"
   value       = ["${local.droplet_name}"]
+}
+
+output "private_a" {
+  description = "List of Droplet private DNS A record FQDNs."
+  value       = ["${local.private_a}"]
+}
+
+output "private_aaaa" {
+  description = "List of Droplet private DNS AAAA record FQDNs."
+  value       = ["${local.private_aaaa}"]
+}
+
+output "public_a" {
+  description = "List of Droplet public DNS A record FQDNs."
+  value       = ["${local.public_a}"]
+}
+
+output "public_aaaa" {
+  description = "List of Droplet public DNS AAAA record FQDNs."
+  value       = ["${local.public_aaaa}"]
 }
 
 output "region" {

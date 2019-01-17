@@ -18,7 +18,7 @@ resource "digitalocean_droplet" "droplet" {
   count = "${var.droplet_count}"
 
   image = "${coalesce(var.image_id, element(coalescelist(data.digitalocean_image.custom.*.image, data.digitalocean_image.official.*.image), 0))}"
-  name  = "${var.domain_external != "" ? format("%s-%s.%s", var.droplet_name, format(var.number_format, count.index+1), var.domain_external) : format("%s-%s", var.droplet_name, format(var.number_format, count.index+1))}"
+  name  = "${format("%s-%s", var.droplet_name, format(var.number_format, count.index+1))}"
 
   region = "${var.region}"
   size   = "${coalesce(var.sizes[var.droplet_size], var.droplet_size)}"
@@ -39,11 +39,11 @@ resource "digitalocean_volume" "volume" {
   count = "${var.block_storage_size > 0 ? coalesce(var.block_storage_count, var.droplet_count) : 0}"
 
   region = "${var.region}"
-  name   = "${coalesce(var.block_storage_name, format("%s-%s", var.droplet_name, format(var.number_format, count.index+1)))}"
+  name   = "${coalesce(var.block_storage_name, element(digitalocean_droplet.droplet.*.name, count.index))}"
   size   = "${var.block_storage_size}"
 
   // Optional
-  description              = "Block storage for ${format("%s-%s", var.droplet_name, format(var.number_format, count.index+1))}"
+  description              = "Block storage for ${element(digitalocean_droplet.droplet.*.name, count.index)}"
   initial_filesystem_label = "${var.block_storage_filesystem_label}"
   initial_filesystem_type  = "${var.block_storage_filesystem_type}"
 }
@@ -85,4 +85,44 @@ resource "digitalocean_loadbalancer" "loadbalancer" {
   sticky_sessions = ["${var.loadbalancer_sticky_sessions}"]
 
   droplet_tag = "${digitalocean_tag.default_tag.name}"
+}
+
+// Public DNS A Record
+resource "digitalocean_record" "public_a" {
+  count = "${var.public_domain != "" ? var.droplet_count : 0}"
+
+  domain = "${var.public_domain}"
+  type   = "A"
+  name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
+  value  = "${element(digitalocean_droplet.droplet.*.ipv4_address, count.index)}"
+}
+
+// Public DNS AAAA Record
+resource "digitalocean_record" "public_aaaa" {
+  count = "${var.ipv6 > 0 && var.public_domain != "" ? var.droplet_count : 0}"
+
+  domain = "${var.public_domain}"
+  type   = "AAAA"
+  name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
+  value  = "${element(digitalocean_droplet.droplet.*.ipv6_address, count.index)}"
+}
+
+// Private DNS A Record
+resource "digitalocean_record" "private_a" {
+  count = "${var.private_networking > 0 && var.private_domain != "" ? var.droplet_count : 0}"
+
+  domain = "${var.private_domain}"
+  type   = "A"
+  name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
+  value  = "${element(digitalocean_droplet.droplet.*.ipv4_address_private, count.index)}"
+}
+
+// Private DNS AAAA Record
+resource "digitalocean_record" "private_aaaa" {
+  count = "${var.private_networking > 0 && var.ipv6 > 0 && var.private_domain != "" ? var.droplet_count : 0}"
+
+  domain = "${var.public_domain}"
+  type   = "AAAA"
+  name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
+  value  = "${element(digitalocean_droplet.droplet.*.ipv6_address_private, count.index)}"
 }

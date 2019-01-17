@@ -53,13 +53,15 @@ Run `terraform destroy` when you don't need these resources.
 | loadbalancer\_tag | The name of a Droplet tag corresponding to Droplets to be assigned to the Load Balancer. | string | `` | no |
 | monitoring | (Optional) Boolean controlling whether monitoring agent is installed. Defaults to false. | string | `false` | no |
 | number\_format | The number format used to output. | string | `%02d` | no |
+| private\_domain | (Optional) String containing the private DNS domain to create a record for the Droplets in. | string | `` | no |
 | private\_networking | (Optional) Boolean controlling if private networks are enabled. Defaults to false. | string | `false` | no |
+| public\_domain | (Optional) String containing the public DNS domain to create a record for the Droplets in. | string | `` | no |
 | region | The Digitalocean datacenter to create resources in. | string | `ams3` | no |
 | resize\_disk | (Optional) Boolean controlling whether to increase the disk size when resizing a Droplet. It defaults to true. When set to false, only the Droplet's RAM and CPU will be resized. Increasing a Droplet's disk size is a permanent change. Increasing only RAM and CPU is reversible. | string | `true` | no |
 | sizes | A map of pre-canned instance sizes. | map | `{ "large": "s-6vcpu-16gb", "maximum": "s-32vcpu-192gb", "medium": "s-4vcpu-8gb", "micro": "s-2vcpu-2gb", "nano": "s-1vcpu-1gb", "small": "s-2vcpu-4gb", "x-large": "s-8vcpu-32gb", "xx-large": "s-16vcpu-64gb", "xxx-large": "s-24vcpu-128gb" }` | no |
 | ssh\_keys | (Optional) A list of SSH IDs or fingerprints to enable in the format [12345, 123456]. To retrieve this info, use a tool such as curl with the DigitalOcean API, to retrieve them. | list | `[]` | no |
 | tags | (Optional) A list of the tags to label this Droplet. A tag resource must exist before it can be associated with a Droplet. | list | `[]` | no |
-| user\_data | (Optional) - A string of the desired User Data for the Droplet. | string | `true` | no |
+| user\_data | (Optional) A string of the desired User Data for the Droplet. | string | `exit 0` | no |
 
 ## Outputs
 
@@ -77,6 +79,10 @@ Run `terraform destroy` when you don't need these resources.
 | loadbalancer\_id | ID of the loadbalancer |
 | loadbalancer\_ip | IP address of the loadbalancer |
 | name | List of names of Droplets |
+| private\_a | List of Droplet private DNS A record FQDNs. |
+| private\_aaaa | List of Droplet private DNS AAAA record FQDNs. |
+| public\_a | List of Droplet public DNS A record FQDNs. |
+| public\_aaaa | List of Droplet public DNS AAAA record FQDNs. |
 | region | List of regions of Droplets |
 | size | List of sizes of Droplets |
 | tags | List of tags of Droplets |
