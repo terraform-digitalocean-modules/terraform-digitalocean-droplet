@@ -38,11 +38,6 @@ variable "custom_image" {
   default     = false
 }
 
-variable "domain_external" {
-  description = "Domain name to construct FQDN from (DigitalOcean configures PTR record if zone is hosted by them)"
-  default     = ""
-}
-
 variable "droplet_count" {
   description = "The number of droplets / other resources to create"
   default     = 1

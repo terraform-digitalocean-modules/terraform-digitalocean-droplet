@@ -35,7 +35,6 @@ Run `terraform destroy` when you don't need these resources.
 | block\_storage\_name | (Optional) Override filesystem name for the block storage volume. | string | `` | no |
 | block\_storage\_size | (Required) The size of the block storage volume in GiB. If updated, can only be expanded. | string | `0` | no |
 | custom\_image | Whether the image is custom or not (an official image) | string | `false` | no |
-| domain\_external | Domain name to construct FQDN from (DigitalOcean configures PTR record if zone is hosted by them) | string | `` | no |
 | droplet\_count | The number of droplets / other resources to create | string | `1` | no |
 | droplet\_name | The name of the droplet. If more than one droplet it is appended with the count, examples: stg-web, stg-web-01, stg-web-02 | string | - | yes |
 | droplet\_size | the size slug of a droplet size | string | `micro` | no |
