@@ -75,18 +75,75 @@ variable "floating_ip_count" {
 }
 
 variable "image_id" {
-  description = "The id of an image to use"
+  description = "The id of an image to use."
   default     = ""
 }
 
 variable "image_name" {
-  description = "The image name or slug to lookup"
+  description = "The image name or slug to lookup."
   default     = "ubuntu-18-04-x64"
 }
 
 variable "ipv6" {
   description = "(Optional) Boolean controlling if IPv6 is enabled. Defaults to false."
   default     = false
+}
+
+variable "loadbalancer" {
+  description = "Boolean to control whether to create a Load Balancer."
+  default     = false
+}
+
+variable "loadbalancer_algorithm" {
+  description = "The load balancing algorithm used to determine which backend Droplet will be selected by a client. It must be either round_robin or least_connections."
+  default     = "round_robin"
+}
+
+variable "loadbalancer_forwarding_rule" {
+  description = "List of forwarding_rule maps to apply to the loadbalancer."
+  type        = "list"
+
+  default = [
+    {
+      entry_port     = 80
+      entry_protocol = "http"
+
+      target_port     = 80
+      target_protocol = "http"
+    },
+  ]
+}
+
+variable "loadbalancer_healthcheck" {
+  description = "A healthcheck block to be assigned to the Load Balancer. Only 1 healthcheck is allowed."
+  type        = "map"
+
+  default = {
+    port     = 80
+    protocol = "http"
+    path     = "/"
+  }
+}
+
+variable "loadbalancer_name" {
+  description = "Override Load Balancer name."
+  default     = ""
+}
+
+variable "loadbalancer_redirect_http_to_https" {
+  description = "(Optional) A boolean value indicating whether HTTP requests to the Load Balancer on port 80 will be redirected to HTTPS on port 443."
+  default     = "false"
+}
+
+variable "loadbalancer_sticky_sessions" {
+  description = "A sticky_sessions block to be assigned to the Load Balancer. Only 1 sticky_sessions block is allowed."
+  type        = "map"
+  default     = {}
+}
+
+variable "loadbalancer_tag" {
+  description = "The name of a Droplet tag corresponding to Droplets to be assigned to the Load Balancer."
+  default     = ""
 }
 
 variable "monitoring" {
@@ -105,7 +162,7 @@ variable "private_networking" {
 }
 
 variable "region" {
-  description = "The Digitalocean datacenter to create resources in"
+  description = "The Digitalocean datacenter to create resources in."
   default     = "ams3"
 }
 
@@ -115,7 +172,7 @@ variable "resize_disk" {
 }
 
 variable "sizes" {
-  description = "A map of pre-canned instance sizes"
+  description = "A map of pre-canned instance sizes."
   type        = "map"
 
   default = {

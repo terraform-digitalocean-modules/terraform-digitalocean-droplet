@@ -3,6 +3,10 @@ data "digitalocean_image" "default" {
   slug = "${var.image_name}"
 }
 
+resource "digitalocean_tag" "default_tag" {
+  name = "DEFAULT:${var.droplet_name}"
+}
+
 // Create Droplets
 resource "digitalocean_droplet" "droplet" {
   count = "${var.droplet_count}"
@@ -20,7 +24,7 @@ resource "digitalocean_droplet" "droplet" {
   private_networking = "${var.private_networking}"
   ssh_keys           = "${var.ssh_keys}"
   resize_disk        = "${var.resize_disk}"
-  tags               = ["${var.tags}"]
+  tags               = ["${compact(concat(var.tags, list(digitalocean_tag.default_tag.id)))}"]
   user_data          = "${var.user_data}"
 }
 
@@ -58,4 +62,21 @@ resource "digitalocean_floating_ip_assignment" "floating_ip_assignment" {
 
   ip_address = "${element(digitalocean_floating_ip.floating_ip.*.id, count.index)}"
   droplet_id = "${element(digitalocean_droplet.droplet.*.id, count.index)}"
+}
+
+// Loadbalancer
+resource "digitalocean_loadbalancer" "loadbalancer" {
+  count = "${var.loadbalancer > 0 ? 1 : 0}"
+
+  name      = "${coalesce(var.loadbalancer_name, format("%s-lb", var.droplet_name))}"
+  region    = "${var.region}"
+  algorithm = "${var.loadbalancer_algorithm}"
+
+  redirect_http_to_https = "${var.loadbalancer_redirect_http_to_https}"
+
+  forwarding_rule = ["${var.loadbalancer_forwarding_rule}"]
+  healthcheck     = ["${var.loadbalancer_healthcheck}"]
+  sticky_sessions = ["${var.loadbalancer_sticky_sessions}"]
+
+  droplet_tag = "${digitalocean_tag.default_tag.name}"
 }

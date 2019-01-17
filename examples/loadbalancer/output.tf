@@ -1,6 +1,6 @@
 output "loadbalancer_ip" {
   description = "IP address of the Load Balancer"
-  value       = "${digitalocean_loadbalancer.public.ip}"
+  value       = "${module.web.loadbalancer_ip}"
 }
 
 output "web_ipv4_address" {
