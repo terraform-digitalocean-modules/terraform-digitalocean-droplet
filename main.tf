@@ -121,7 +121,7 @@ resource "digitalocean_record" "private_a" {
 resource "digitalocean_record" "private_aaaa" {
   count = "${var.private_networking > 0 && var.ipv6 > 0 && var.private_domain != "" ? var.droplet_count : 0}"
 
-  domain = "${var.public_domain}"
+  domain = "${var.private_domain}"
   type   = "AAAA"
   name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
   value  = "${element(digitalocean_droplet.droplet.*.ipv6_address_private, count.index)}"
