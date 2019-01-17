@@ -19,7 +19,7 @@ Some examples can be found in this repository:
 * [Load Balancer](examples/loadbalancer)
 * [DNS](examples/dns)
 
-**Note** The examples may create resources which can cost money.
+**Note** that examples may create resources which can cost money.
 Run `terraform destroy` when you don't need these resources.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
