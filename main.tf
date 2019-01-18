@@ -1,3 +1,18 @@
+locals {
+  // Map of pre-named sizes to look up from
+  sizes = {
+    nano      = "s-1vcpu-1gb"
+    micro     = "s-2vcpu-2gb"
+    small     = "s-2vcpu-4gb"
+    medium    = "s-4vcpu-8gb"
+    large     = "s-6vcpu-16gb"
+    x-large   = "s-8vcpu-32gb"
+    xx-large  = "s-16vcpu-64gb"
+    xxx-large = "s-24vcpu-128gb"
+    maximum   = "s-32vcpu-192gb"
+  }
+}
+
 // Lookup image to get id
 data "digitalocean_image" "official" {
   count = "${var.custom_image > 0 ? 0 : 1}"
@@ -21,7 +36,7 @@ resource "digitalocean_droplet" "droplet" {
   name  = "${format("%s-%s", var.droplet_name, format(var.number_format, count.index+1))}"
 
   region = "${var.region}"
-  size   = "${coalesce(var.sizes[var.droplet_size], var.droplet_size)}"
+  size   = "${coalesce(local.sizes[var.droplet_size], var.droplet_size)}"
 
   // Optional
   backups            = "${var.backups}"
@@ -89,7 +104,7 @@ resource "digitalocean_loadbalancer" "loadbalancer" {
 
 // Public DNS A Record
 resource "digitalocean_record" "public_a" {
-  count = "${var.public_domain != "" ? var.droplet_count : 0}"
+  count = "${length(var.public_domain) > 0 ? var.droplet_count : 0}"
 
   domain = "${var.public_domain}"
   type   = "A"
@@ -99,7 +114,7 @@ resource "digitalocean_record" "public_a" {
 
 // Public DNS AAAA Record
 resource "digitalocean_record" "public_aaaa" {
-  count = "${var.ipv6 > 0 && var.public_domain != "" ? var.droplet_count : 0}"
+  count = "${length(var.public_domain) > 0 ? var.droplet_count : 0}"
 
   domain = "${var.public_domain}"
   type   = "AAAA"
@@ -109,22 +124,10 @@ resource "digitalocean_record" "public_aaaa" {
 
 // Private DNS A Record
 resource "digitalocean_record" "private_a" {
-  count = "${var.private_networking > 0 && var.private_domain != "" ? var.droplet_count : 0}"
+  count = "${var.private_networking > 0 && length(var.private_domain) > 0 ? var.droplet_count : 0}"
 
   domain = "${var.private_domain}"
   type   = "A"
   name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
   value  = "${element(digitalocean_droplet.droplet.*.ipv4_address_private, count.index)}"
 }
-
-// Private DNS AAAA Record - Not supported somewhere:
-// https://github.com/terraform-providers/terraform-provider-digitalocean/issues/181
-// resource "digitalocean_record" "private_aaaa" {
-//   count = "${var.private_networking > 0 && var.ipv6 > 0 && var.private_domain != "" ? var.droplet_count : 0}"
-//
-//   domain = "${var.private_domain}"
-//   type   = "AAAA"
-//   name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
-//   value  = "${element(digitalocean_droplet.droplet.*.ipv6_address_private, count.index)}"
-// }
-

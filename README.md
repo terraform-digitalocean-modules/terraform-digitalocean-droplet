@@ -22,6 +22,23 @@ Some examples can be found in this repository:
 **Note** that examples may create resources which can cost money.
 Run `terraform destroy` when you don't need these resources.
 
+## Droplet Sizes
+A map of name to Droplet sizes exists to make specifying Droplet sizes simpler:
+
+| Name      | Droplet Size   |
+| --------- | -------------- |
+| nano      | s-1vcpu-1gb    |
+| micro     | s-2vcpu-2gb    |
+| small     | s-2vcpu-4gb    |
+| medium    | s-4vcpu-8gb    |
+| large     | s-6vcpu-16gb   |
+| x-large   | s-8vcpu-32gb   |
+| xx-large  | s-16vcpu-64gb  |
+| xxx-large | s-24vcpu-128gb |
+| maximum   | s-32vcpu-192gb |
+
+See [DigitalOcean Pricing](https://www.digitalocean.com/pricing/) for costs.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
@@ -59,7 +76,6 @@ Run `terraform destroy` when you don't need these resources.
 | public\_domain | (Optional) String containing the public DNS domain to create a record for the Droplets in. | string | `` | no |
 | region | The Digitalocean datacenter to create resources in. | string | `ams3` | no |
 | resize\_disk | (Optional) Boolean controlling whether to increase the disk size when resizing a Droplet. It defaults to true. When set to false, only the Droplet's RAM and CPU will be resized. Increasing a Droplet's disk size is a permanent change. Increasing only RAM and CPU is reversible. | string | `true` | no |
-| sizes | A map of pre-canned instance sizes. | map | `{ "large": "s-6vcpu-16gb", "maximum": "s-32vcpu-192gb", "medium": "s-4vcpu-8gb", "micro": "s-2vcpu-2gb", "nano": "s-1vcpu-1gb", "small": "s-2vcpu-4gb", "x-large": "s-8vcpu-32gb", "xx-large": "s-16vcpu-64gb", "xxx-large": "s-24vcpu-128gb" }` | no |
 | ssh\_keys | (Optional) A list of SSH IDs or fingerprints to enable in the format [12345, 123456]. To retrieve this info, use a tool such as curl with the DigitalOcean API, to retrieve them. | list | `[]` | no |
 | tags | (Optional) A list of the tags to label this Droplet. A tag resource must exist before it can be associated with a Droplet. | list | `[]` | no |
 | user\_data | (Optional) A string of the desired User Data for the Droplet. | string | `exit 0` | no |
@@ -76,7 +92,6 @@ Run `terraform destroy` when you don't need these resources.
 | ipv4\_address | List of public IPv4 addresses assigned to the Droplets |
 | ipv4\_address\_private | List of private IPv4 addresses assigned to the Droplets, if applicable |
 | ipv6\_address | List of public IPv6 addresses assigned to the Droplets, if applicable |
-| ipv6\_address\_private | List of private IPv6 addresses assigned to the Droplets, if applicable |
 | loadbalancer\_id | ID of the loadbalancer |
 | loadbalancer\_ip | IP address of the loadbalancer |
 | name | List of names of Droplets |

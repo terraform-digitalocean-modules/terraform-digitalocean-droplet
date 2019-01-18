@@ -166,23 +166,6 @@ variable "resize_disk" {
   default     = true
 }
 
-variable "sizes" {
-  description = "A map of pre-canned instance sizes."
-  type        = "map"
-
-  default = {
-    nano      = "s-1vcpu-1gb"
-    micro     = "s-2vcpu-2gb"
-    small     = "s-2vcpu-4gb"
-    medium    = "s-4vcpu-8gb"
-    large     = "s-6vcpu-16gb"
-    x-large   = "s-8vcpu-32gb"
-    xx-large  = "s-16vcpu-64gb"
-    xxx-large = "s-24vcpu-128gb"
-    maximum   = "s-32vcpu-192gb"
-  }
-}
-
 variable "ssh_keys" {
   description = "(Optional) A list of SSH IDs or fingerprints to enable in the format [12345, 123456]. To retrieve this info, use a tool such as curl with the DigitalOcean API, to retrieve them."
   type        = "list"

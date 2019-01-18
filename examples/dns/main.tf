@@ -25,16 +25,14 @@ resource "digitalocean_tag" "ROLE_web" {
 
 // DNS Zones
 resource "digitalocean_domain" "public" {
-  name       = "${format("public.%s.com", random_string.domain.result)}"
-  ip_address = "${module.web.loadbalancer_ip}"
+  name = "${format("public.%s.com", random_string.domain.result)}"
 }
 
-resource "digitalocean_domain" "private" {
-  name = "${format("private.%s.com", random_string.domain.result)}"
-}
-
-data "digitalocean_domain" "private" {
-  name = "${digitalocean_domain.private.name}"
+resource "digitalocean_record" "public-apex" {
+  domain = "${digitalocean_domain.public.name}"
+  type   = "A"
+  name   = "@"
+  value  = "${module.web.loadbalancer_ip}"
 }
 
 module "web" {
@@ -49,7 +47,6 @@ module "web" {
 
   ipv6          = true
   public_domain = "${digitalocean_domain.public.name}"
-  public_domain = "${digitalocean_domain.private.name}"
 
   loadbalancer = true
 }

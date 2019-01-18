@@ -6,13 +6,23 @@ configuring DNS zones and records for droplets and the loadbalancer.
 
 ## Usage
 
+>**Caveat** due to a long standing limitation in using computed values within
+count variable assignment you need to target the public domain creation before
+creating the other resources. This shouldn't be a problem in normal usage and is
+because this example uses the random provider to generate a random domain name.
+
 To run this example you need to execute:
 
 ```bash
 $ terraform init
+$ terraform plan -target=digitalocean_domain.public
+$ terraform apply -target=digitalocean_domain.public
 $ terraform plan
 $ terraform apply
 ```
+
+This is due to the domain already existing on DigitalOcean. You can swap these
+lines to generate a random domain name:
 
 Now visit your Load Balancer IP in a browser and refresh. After a few minutes
 you should see the requests are sent to each Droplet in a round-robin fashion.
@@ -41,10 +51,9 @@ Run `terraform destroy` when you don't need these resources.
 | Name | Description |
 |------|-------------|
 | loadbalancer\_ip | IP address of the Load Balancer. |
-| private\_domain\_zone\_file | The private DNS domain zone file contents. |
-| public\_domain\_ip\_address | The public DNS domain apex record IP address. |
 | public\_domain\_name | The public DNS domain name. |
 | public\_hostnames | The public domain name of the first Droplet. |
 | web\_ipv4\_address | List of IPv4 addresses of web Droplets. |
+| web\_ipv6\_address | List of IPv6 addresses of web Droplets. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

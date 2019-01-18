@@ -3,18 +3,20 @@ locals {
   droplet_ipv4_address         = "${compact(concat(digitalocean_droplet.droplet.*.ipv4_address, list("")))}"
   droplet_ipv4_address_private = "${compact(concat(digitalocean_droplet.droplet.*.ipv4_address_private, list("")))}"
   droplet_ipv6_address         = "${compact(concat(digitalocean_droplet.droplet.*.ipv6_address, list("")))}"
-  droplet_ipv6_address_private = "${compact(concat(digitalocean_droplet.droplet.*.ipv6_address_private, list("")))}"
   droplet_region               = "${compact(concat(digitalocean_droplet.droplet.*.region, list("")))}"
   droplet_name                 = "${compact(concat(digitalocean_droplet.droplet.*.name, list("")))}"
   droplet_size                 = "${compact(concat(digitalocean_droplet.droplet.*.size, list("")))}"
   droplet_image                = "${compact(concat(digitalocean_droplet.droplet.*.image, list("")))}"
   droplet_tags                 = "${compact(concat(flatten(digitalocean_droplet.droplet.*.tags), list("")))}"
   floating_ip_address          = "${compact(concat(digitalocean_floating_ip.floating_ip.*.ip_address, list("")))}"
-  loadbalancer_id              = "${compact(concat(digitalocean_loadbalancer.loadbalancer.*.id, list("")))}"
-  loadbalancer_ip              = "${compact(concat(digitalocean_loadbalancer.loadbalancer.*.ip, list("")))}"
-  private_a                    = "${compact(concat(digitalocean_record.private_a.*.fqdn, list("")))}"
 
-  //  private_aaaa                 = "${compact(concat(digitalocean_record.private_aaaa.*.fqdn, list("")))}"
+  // join is used to return a string rather than a list as only a 1 or 0 loadbalancers will ever exist.
+  // Using the * value is needed as there may or moy not be a loadbalancer resource to get the ip from which causes errors.
+  loadbalancer_id = "${join("", compact(concat(digitalocean_loadbalancer.loadbalancer.*.id, list(""))))}"
+
+  loadbalancer_ip = "${join("", compact(concat(digitalocean_loadbalancer.loadbalancer.*.ip, list(""))))}"
+
+  private_a              = "${compact(concat(digitalocean_record.private_a.*.fqdn, list("")))}"
   public_a               = "${compact(concat(digitalocean_record.public_a.*.fqdn, list("")))}"
   public_aaaa            = "${compact(concat(digitalocean_record.public_aaaa.*.fqdn, list("")))}"
   volume_id              = "${compact(concat(digitalocean_volume.volume.*.id, list("")))}"
@@ -63,19 +65,14 @@ output "ipv6_address" {
   value       = ["${local.droplet_ipv6_address}"]
 }
 
-output "ipv6_address_private" {
-  description = "List of private IPv6 addresses assigned to the Droplets, if applicable"
-  value       = ["${local.droplet_ipv6_address_private}"]
-}
-
 output "loadbalancer_id" {
   description = "ID of the loadbalancer"
-  value       = ["${local.loadbalancer_ip}"]
+  value       = "${local.loadbalancer_ip}"
 }
 
 output "loadbalancer_ip" {
   description = "IP address of the loadbalancer"
-  value       = ["${local.loadbalancer_ip}"]
+  value       = "${local.loadbalancer_ip}"
 }
 
 output "name" {
@@ -87,11 +84,6 @@ output "private_a" {
   description = "List of Droplet private DNS A record FQDNs."
   value       = ["${local.private_a}"]
 }
-
-// output "private_aaaa" {
-//   description = "List of Droplet private DNS AAAA record FQDNs."
-//   value       = ["${local.private_aaaa}"]
-// }
 
 output "public_a" {
   description = "List of Droplet public DNS A record FQDNs."
