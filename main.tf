@@ -25,6 +25,8 @@ data "digitalocean_image" "custom" {
 }
 
 resource "digitalocean_tag" "default_tag" {
+  count = "${var.droplet_count > 0 ? 1 : 0}"
+
   name = "DEFAULT:${var.droplet_name}"
 }
 
