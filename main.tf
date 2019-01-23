@@ -75,13 +75,13 @@ resource "digitalocean_volume_attachment" "volume_attachment" {
 
 // Floating IP
 resource "digitalocean_floating_ip" "floating_ip" {
-  count  = "${var.floating_ip > 0 ? coalesce(var.floating_ip_count, var.droplet_count) : 0}"
+  count  = "${var.floating_ip > 0 && var.droplet_count > 0 ? coalesce(var.floating_ip_count, var.droplet_count) : 0}"
   region = "${var.region}"
 }
 
 // Floating IP assignment
 resource "digitalocean_floating_ip_assignment" "floating_ip_assignment" {
-  count = "${var.floating_ip > 0 && var.floating_ip_assign > 0 ? coalesce(var.floating_ip_count, var.droplet_count) : 0}"
+  count = "${var.floating_ip > 0 && var.floating_ip_assign > 0 && var.droplet_count > 0 ? coalesce(var.floating_ip_count, var.droplet_count) : 0}"
 
   ip_address = "${element(digitalocean_floating_ip.floating_ip.*.id, count.index)}"
   droplet_id = "${element(digitalocean_droplet.droplet.*.id, count.index)}"
@@ -89,7 +89,7 @@ resource "digitalocean_floating_ip_assignment" "floating_ip_assignment" {
 
 // Loadbalancer
 resource "digitalocean_loadbalancer" "loadbalancer" {
-  count = "${var.loadbalancer > 0 ? 1 : 0}"
+  count = "${var.loadbalancer > 0 && var.droplet_count > 0 ? 1 : 0}"
 
   name      = "${coalesce(var.loadbalancer_name, format("%s-lb", var.droplet_name))}"
   region    = "${var.region}"
