@@ -67,7 +67,7 @@ output "ipv6_address" {
 
 output "loadbalancer_id" {
   description = "ID of the loadbalancer"
-  value       = "${local.loadbalancer_ip}"
+  value       = "${local.loadbalancer_id}"
 }
 
 output "loadbalancer_ip" {
