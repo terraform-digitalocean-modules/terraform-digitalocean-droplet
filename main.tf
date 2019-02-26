@@ -110,6 +110,7 @@ resource "digitalocean_record" "public_a" {
 
   domain = "${var.public_domain}"
   type   = "A"
+  ttl    = "60"
   name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
   value  = "${element(digitalocean_droplet.droplet.*.ipv4_address, count.index)}"
 }
@@ -120,6 +121,7 @@ resource "digitalocean_record" "public_aaaa" {
 
   domain = "${var.public_domain}"
   type   = "AAAA"
+  ttl    = "60"
   name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
   value  = "${element(digitalocean_droplet.droplet.*.ipv6_address, count.index)}"
 }
@@ -130,6 +132,7 @@ resource "digitalocean_record" "private_a" {
 
   domain = "${var.private_domain}"
   type   = "A"
+  ttl    = "60"
   name   = "${element(digitalocean_droplet.droplet.*.name, count.index)}"
   value  = "${element(digitalocean_droplet.droplet.*.ipv4_address_private, count.index)}"
 }
