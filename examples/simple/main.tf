@@ -1,7 +1,7 @@
 variable "do_token" {}
 
 provider "digitalocean" {
-  token = "${var.do_token}"
+  token = var.do_token
 }
 
 resource "digitalocean_tag" "ENV_example" {
@@ -24,6 +24,6 @@ module "web" {
   ipv6               = true
   floating_ip        = true
   block_storage_size = 5
-  tags               = ["${digitalocean_tag.ENV_example.id}", "${digitalocean_tag.ROLE_web.id}"]
-  user_data          = "${file("user-data.web")}"
+  tags               = [digitalocean_tag.ENV_example.id, digitalocean_tag.ROLE_web.id]
+  user_data          = file("user-data.web")
 }

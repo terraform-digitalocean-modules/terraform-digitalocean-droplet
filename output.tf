@@ -27,95 +27,95 @@ locals {
 
 output "droplet_id" {
   description = "List of IDs of Droplets"
-  value       = ["${local.droplet_id}"]
+  value       = local.droplet_id
 }
 
 output "droplet_ids" {
   description = "List of associated Droplet IDs of Volumes"
-  value       = ["${local.volume_droplet_ids}"]
+  value       = local.volume_droplet_ids
 }
 
 output "filesystem_type" {
   description = "List of initial filesystem types of Volumes"
-  value       = ["${local.volume_filesystem_type}"]
+  value       = local.volume_filesystem_type
 }
 
 output "floating_ip_address" {
   description = "List of floating IP addresses created"
-  value       = ["${local.floating_ip_address}"]
+  value       = local.floating_ip_address
 }
 
 output "image" {
   description = "List of images of Droplets"
-  value       = ["${local.droplet_image}"]
+  value       = local.droplet_image
 }
 
 output "ipv4_address" {
   description = "List of public IPv4 addresses assigned to the Droplets"
-  value       = ["${local.droplet_ipv4_address}"]
+  value       = local.droplet_ipv4_address
 }
 
 output "ipv4_address_private" {
   description = "List of private IPv4 addresses assigned to the Droplets, if applicable"
-  value       = ["${local.droplet_ipv4_address_private}"]
+  value       = local.droplet_ipv4_address_private
 }
 
 output "ipv6_address" {
   description = "List of public IPv6 addresses assigned to the Droplets, if applicable"
-  value       = ["${local.droplet_ipv6_address}"]
+  value       = local.droplet_ipv6_address
 }
 
 output "loadbalancer_id" {
   description = "ID of the loadbalancer"
-  value       = "${local.loadbalancer_id}"
+  value       = local.loadbalancer_id
 }
 
 output "loadbalancer_ip" {
   description = "IP address of the loadbalancer"
-  value       = "${local.loadbalancer_ip}"
+  value       = local.loadbalancer_ip
 }
 
 output "name" {
   description = "List of names of Droplets"
-  value       = ["${local.droplet_name}"]
+  value       = local.droplet_name
 }
 
 output "private_a" {
   description = "List of Droplet private DNS A record FQDNs."
-  value       = ["${local.private_a}"]
+  value       = local.private_a
 }
 
 output "public_a" {
   description = "List of Droplet public DNS A record FQDNs."
-  value       = ["${local.public_a}"]
+  value       = local.public_a
 }
 
 output "public_aaaa" {
   description = "List of Droplet public DNS AAAA record FQDNs."
-  value       = ["${local.public_aaaa}"]
+  value       = local.public_aaaa
 }
 
 output "region" {
   description = "List of regions of Droplets"
-  value       = ["${local.droplet_region}"]
+  value       = local.droplet_region
 }
 
 output "size" {
   description = "List of sizes of Droplets"
-  value       = ["${local.droplet_size}"]
+  value       = local.droplet_size
 }
 
 output "tags" {
   description = "List of tags of Droplets"
-  value       = ["${local.droplet_tags}"]
+  value       = local.droplet_tags
 }
 
 output "volume_attachment_id" {
   description = "List of IDs of Volume Attachments"
-  value       = ["${local.volume_attachment_id}"]
+  value       = local.volume_attachment_id
 }
 
 output "volume_id" {
   description = "List of IDs of Volumes"
-  value       = ["${local.volume_id}"]
+  value       = local.volume_id
 }

@@ -62,13 +62,13 @@ See [DigitalOcean Pricing](https://www.digitalocean.com/pricing/) for costs.
 | image\_name | The image name or slug to lookup. | string | `ubuntu-18-04-x64` | no |
 | ipv6 | (Optional) Boolean controlling if IPv6 is enabled. Defaults to false. | string | `false` | no |
 | loadbalancer | Boolean to control whether to create a Load Balancer. | string | `false` | no |
-| loadbalancer\_algorithm | The load balancing algorithm used to determine which backend Droplet will be selected by a client. It must be either round_robin or least_connections. | string | `round_robin` | no |
-| loadbalancer\_forwarding\_rule | List of forwarding_rule maps to apply to the loadbalancer. | list | `[ { "entry_port": 80, "entry_protocol": "http", "target_port": 80, "target_protocol": "http" } ]` | no |
-| loadbalancer\_healthcheck | A healthcheck block to be assigned to the Load Balancer. Only 1 healthcheck is allowed. | map | `{ "path": "/", "port": 80, "protocol": "http" }` | no |
-| loadbalancer\_name | Override Load Balancer name. | string | `` | no |
-| loadbalancer\_redirect\_http\_to\_https | (Optional) A boolean value indicating whether HTTP requests to the Load Balancer on port 80 will be redirected to HTTPS on port 443. | string | `false` | no |
-| loadbalancer\_sticky\_sessions | A sticky_sessions block to be assigned to the Load Balancer. Only 1 sticky_sessions block is allowed. | map | `{}` | no |
-| loadbalancer\_tag | The name of a Droplet tag corresponding to Droplets to be assigned to the Load Balancer. | string | `` | no |
+| loadbalancer\_algorithm | The load balancing algorithm used to determine which backend Droplet will be selected by a client. It must be either round_robin or least_connections. | string | round_robin | no |
+| loadbalancer\_forwarding\_rule | List of forwarding_rule maps to apply to the loadbalancer. | map | `{ "entry_port": 80, "entry_protocol": "http", "target_port": 80, "target_protocol": "http", "tls_passthrough": false }` | no |
+| loadbalancer\_healthcheck | A healthcheck block to be assigned to the Load Balancer. Only 1 healthcheck is allowed. | map | `{ "check_interval_seconds": 10, "healthy_threshold": 5, "path": "/", "port": 80, "protocol": "http", "response_timeout_seconds": 10, "unhealthy_threshold": 3 }` | no |
+| loadbalancer\_name | Override Load Balancer name. | string |  | no |
+| loadbalancer\_redirect\_http\_to\_https | (Optional) A boolean value indicating whether HTTP requests to the Load Balancer on port 80 will be redirected to HTTPS on port 443. | string | false | no |
+| loadbalancer\_sticky\_sessions | A sticky_sessions block to be assigned to the Load Balancer. Only 1 sticky_sessions block is allowed. | map | `{ "type": "none" }` | no |
+| loadbalancer\_tag | The name of a Droplet tag corresponding to Droplets to be assigned to the Load Balancer. | string |  | no |
 | monitoring | (Optional) Boolean controlling whether monitoring agent is installed. Defaults to false. | string | `false` | no |
 | number\_format | The number format used to output. | string | `%02d` | no |
 | private\_domain | (Optional) String containing the private DNS domain to create a record for the Droplets in. | string | `` | no |

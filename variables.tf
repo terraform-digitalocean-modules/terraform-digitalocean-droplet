@@ -45,12 +45,10 @@ variable "droplet_count" {
 
 variable "droplet_name" {
   description = "The name of the droplet. If more than one droplet it is appended with the count, examples: stg-web, stg-web-01, stg-web-02"
-  type        = "string"
 }
 
 variable "droplet_size" {
   description = "the size slug of a droplet size"
-  type        = "string"
   default     = "micro"
 }
 
@@ -96,27 +94,27 @@ variable "loadbalancer_algorithm" {
 
 variable "loadbalancer_forwarding_rule" {
   description = "List of forwarding_rule maps to apply to the loadbalancer."
-  type        = "list"
 
-  default = [
-    {
-      entry_port     = 80
-      entry_protocol = "http"
-
-      target_port     = 80
-      target_protocol = "http"
-    },
-  ]
+  default = {
+    entry_port      = 80
+    entry_protocol  = "http"
+    target_port     = 80
+    target_protocol = "http"
+    tls_passthrough = false
+  }
 }
 
 variable "loadbalancer_healthcheck" {
   description = "A healthcheck block to be assigned to the Load Balancer. Only 1 healthcheck is allowed."
-  type        = "map"
 
   default = {
-    port     = 80
-    protocol = "http"
-    path     = "/"
+    port                     = 80
+    protocol                 = "http"
+    path                     = "/"
+    check_interval_seconds   = 10
+    response_timeout_seconds = 10
+    unhealthy_threshold      = 3
+    healthy_threshold        = 5
   }
 }
 
@@ -132,8 +130,11 @@ variable "loadbalancer_redirect_http_to_https" {
 
 variable "loadbalancer_sticky_sessions" {
   description = "A sticky_sessions block to be assigned to the Load Balancer. Only 1 sticky_sessions block is allowed."
-  type        = "map"
-  default     = {}
+  default = {
+    type               = "none"
+    cookie_name        = null
+    cookie_ttl_seconds = null
+  }
 }
 
 variable "loadbalancer_tag" {
@@ -168,13 +169,11 @@ variable "resize_disk" {
 
 variable "ssh_keys" {
   description = "(Optional) A list of SSH IDs or fingerprints to enable in the format [12345, 123456]. To retrieve this info, use a tool such as curl with the DigitalOcean API, to retrieve them."
-  type        = "list"
   default     = []
 }
 
 variable "tags" {
   description = "(Optional) A list of the tags to label this Droplet. A tag resource must exist before it can be associated with a Droplet."
-  type        = "list"
   default     = []
 }
 

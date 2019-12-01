@@ -1,7 +1,7 @@
 variable "do_token" {}
 
 provider "digitalocean" {
-  token = "${var.do_token}"
+  token = var.do_token
 }
 
 resource "digitalocean_tag" "ENV_example" {
@@ -19,8 +19,8 @@ module "web" {
 
   droplet_name = "example-web"
   droplet_size = "nano"
-  tags         = ["${digitalocean_tag.ENV_example.id}", "${digitalocean_tag.ROLE_web.id}"]
-  user_data    = "${file("user-data.web")}"
+  tags         = [digitalocean_tag.ENV_example.id, digitalocean_tag.ROLE_web.id]
+  user_data    = file("user-data.web")
 
   loadbalancer = true
 }

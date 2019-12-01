@@ -1,7 +1,7 @@
 variable "do_token" {}
 
 provider "digitalocean" {
-  token = "${var.do_token}"
+  token = var.do_token
 }
 
 // For testing purposes we create a random domain name to prevent clashing
@@ -25,14 +25,14 @@ resource "digitalocean_tag" "ROLE_web" {
 
 // DNS Zones
 resource "digitalocean_domain" "public" {
-  name = "${format("public.%s.com", random_string.domain.result)}"
+  name = format("public.%s.com", random_string.domain.result)
 }
 
 resource "digitalocean_record" "public-apex" {
-  domain = "${digitalocean_domain.public.name}"
+  domain = digitalocean_domain.public.name
   type   = "A"
   name   = "@"
-  value  = "${module.web.loadbalancer_ip}"
+  value  = module.web.loadbalancer_ip
 }
 
 module "web" {
@@ -42,11 +42,11 @@ module "web" {
 
   droplet_name = "example-web"
   droplet_size = "nano"
-  tags         = ["${digitalocean_tag.ENV_example.id}", "${digitalocean_tag.ROLE_web.id}"]
-  user_data    = "${file("user-data.web")}"
+  tags         = [digitalocean_tag.ENV_example.id, digitalocean_tag.ROLE_web.id]
+  user_data    = file("user-data.web")
 
   ipv6          = true
-  public_domain = "${digitalocean_domain.public.name}"
+  public_domain = digitalocean_domain.public.name
 
   loadbalancer = true
 }

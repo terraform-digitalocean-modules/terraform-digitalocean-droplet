@@ -23,7 +23,7 @@ Run `terraform destroy` when you don't need these resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| do\_token | - | string | - | yes |
+| do\_token |  | string | n/a | yes |
 
 ## Outputs
 
