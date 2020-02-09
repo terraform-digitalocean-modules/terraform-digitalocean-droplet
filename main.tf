@@ -66,7 +66,7 @@ resource "digitalocean_volume" "volume" {
 
 // Attach volumes
 resource "digitalocean_volume_attachment" "volume_attachment" {
-  count = var.block_storage_size > 0 && var.block_storage_attach == false ? coalesce(var.block_storage_count, var.droplet_count) : 0
+  count = var.block_storage_size > 0 && var.block_storage_attach == true ? coalesce(var.block_storage_count, var.droplet_count) : 0
 
   droplet_id = element(digitalocean_droplet.droplet.*.id, count.index)
   volume_id  = element(digitalocean_volume.volume.*.id, count.index)
