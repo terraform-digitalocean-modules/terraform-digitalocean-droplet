@@ -47,7 +47,7 @@ resource "digitalocean_droplet" "droplet" {
   private_networking = var.private_networking
   ssh_keys           = var.ssh_keys
   resize_disk        = var.resize_disk
-  tags               = compact(concat(digitalocean_tag.default_tag.*.name, list("")))
+  tags               = compact(concat(var.tags, digitalocean_tag.default_tag.*.name, list("")))
   user_data          = var.user_data
 }
 // Block storage
