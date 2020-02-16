@@ -15,6 +15,9 @@ $ terraform apply
 **Note** that this example may create resources which can cost money.
 Run `terraform destroy` when you don't need these resources.
 
+If you're looking to try Digitalocean out, [sign up here](https://m.do.co/c/485f1b80f8dc)
+and get $100 free credit.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
