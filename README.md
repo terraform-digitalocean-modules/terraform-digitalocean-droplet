@@ -22,6 +22,9 @@ Some examples can be found in this repository:
 **Note** that examples may create resources which can cost money.
 Run `terraform destroy` when you don't need these resources.
 
+If you're looking to try Digitalocean out, [sign up here](https://m.do.co/c/485f1b80f8dc)
+and get $100 free credit.
+
 ## Droplet Sizes
 A map of name to Droplet sizes exists to make specifying Droplet sizes simpler:
 
