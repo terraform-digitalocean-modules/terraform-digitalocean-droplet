@@ -43,11 +43,22 @@ If you're looking to try Digitalocean out, [sign up here](https://m.do.co/c/485f
 and get $100 free credit.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| digitalocean | n/a |
+| random | n/a |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| do\_token |  | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| do\_token | n/a | `any` | n/a | yes |
 
 ## Outputs
 
