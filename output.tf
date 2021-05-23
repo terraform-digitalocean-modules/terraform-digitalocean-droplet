@@ -1,28 +1,28 @@
 locals {
-  droplet_id                   = "${compact(concat(digitalocean_droplet.droplet.*.id, list("")))}"
-  droplet_ipv4_address         = "${compact(concat(digitalocean_droplet.droplet.*.ipv4_address, list("")))}"
-  droplet_ipv4_address_private = "${compact(concat(digitalocean_droplet.droplet.*.ipv4_address_private, list("")))}"
-  droplet_ipv6_address         = "${compact(concat(digitalocean_droplet.droplet.*.ipv6_address, list("")))}"
-  droplet_region               = "${compact(concat(digitalocean_droplet.droplet.*.region, list("")))}"
-  droplet_name                 = "${compact(concat(digitalocean_droplet.droplet.*.name, list("")))}"
-  droplet_size                 = "${compact(concat(digitalocean_droplet.droplet.*.size, list("")))}"
-  droplet_image                = "${compact(concat(digitalocean_droplet.droplet.*.image, list("")))}"
-  droplet_tags                 = "${compact(concat(flatten(digitalocean_droplet.droplet.*.tags), list("")))}"
-  floating_ip_address          = "${compact(concat(digitalocean_floating_ip.floating_ip.*.ip_address, list("")))}"
+  droplet_id                   = compact(concat(digitalocean_droplet.droplet.*.id, tolist([])))
+  droplet_ipv4_address         = compact(concat(digitalocean_droplet.droplet.*.ipv4_address, tolist([])))
+  droplet_ipv4_address_private = compact(concat(digitalocean_droplet.droplet.*.ipv4_address_private, tolist([])))
+  droplet_ipv6_address         = compact(concat(digitalocean_droplet.droplet.*.ipv6_address, tolist([])))
+  droplet_region               = compact(concat(digitalocean_droplet.droplet.*.region, tolist([])))
+  droplet_name                 = compact(concat(digitalocean_droplet.droplet.*.name, tolist([])))
+  droplet_size                 = compact(concat(digitalocean_droplet.droplet.*.size, tolist([])))
+  droplet_image                = compact(concat(digitalocean_droplet.droplet.*.image, tolist([])))
+  droplet_tags                 = compact(concat(flatten(digitalocean_droplet.droplet.*.tags), tolist([])))
+  floating_ip_address          = compact(concat(digitalocean_floating_ip.floating_ip.*.ip_address, tolist([])))
 
   // join is used to return a string rather than a list as only a 1 or 0 loadbalancers will ever exist.
   // Using the * value is needed as there may or moy not be a loadbalancer resource to get the ip from which causes errors.
-  loadbalancer_id = "${join("", compact(concat(digitalocean_loadbalancer.loadbalancer.*.id, list(""))))}"
+  loadbalancer_id = join("", compact(concat(digitalocean_loadbalancer.loadbalancer.*.id, tolist([]))))
 
-  loadbalancer_ip = "${join("", compact(concat(digitalocean_loadbalancer.loadbalancer.*.ip, list(""))))}"
+  loadbalancer_ip = join("", compact(concat(digitalocean_loadbalancer.loadbalancer.*.ip, tolist([]))))
 
-  private_a              = "${compact(concat(digitalocean_record.private_a.*.fqdn, list("")))}"
-  public_a               = "${compact(concat(digitalocean_record.public_a.*.fqdn, list("")))}"
-  public_aaaa            = "${compact(concat(digitalocean_record.public_aaaa.*.fqdn, list("")))}"
-  volume_id              = "${compact(concat(digitalocean_volume.volume.*.id, list("")))}"
-  volume_filesystem_type = "${compact(concat(digitalocean_volume.volume.*.initial_filesystem_type, list("")))}"
-  volume_droplet_ids     = "${compact(concat(flatten(digitalocean_volume.volume.*.droplet_ids), list("")))}"
-  volume_attachment_id   = "${compact(concat(digitalocean_volume_attachment.volume_attachment.*.id, list("")))}"
+  private_a              = compact(concat(digitalocean_record.private_a.*.fqdn, tolist([])))
+  public_a               = compact(concat(digitalocean_record.public_a.*.fqdn, tolist([])))
+  public_aaaa            = compact(concat(digitalocean_record.public_aaaa.*.fqdn, tolist([])))
+  volume_id              = compact(concat(digitalocean_volume.volume.*.id, tolist([])))
+  volume_filesystem_type = compact(concat(digitalocean_volume.volume.*.initial_filesystem_type, tolist([])))
+  volume_droplet_ids     = compact(concat(flatten(digitalocean_volume.volume.*.droplet_ids), tolist([])))
+  volume_attachment_id   = compact(concat(digitalocean_volume_attachment.volume_attachment.*.id, tolist([])))
 }
 
 output "droplet_id" {

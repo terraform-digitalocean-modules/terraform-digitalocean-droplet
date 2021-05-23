@@ -1,8 +1,10 @@
 # terraform-digitalocean-droplet
+
 Terraform module which creates Droplet(s) and optionally, Block Storage Volumes,
 Floating IPs, Load Balancers and DNS Records on DigitalOcean.
 
 These types of resources are used:
+
 * [DigitalOcean Droplet](https://www.terraform.io/docs/providers/do/r/droplet.html)
 * [DigitalOcean DNS record](https://www.terraform.io/docs/providers/do/r/record.html)
 * [DigitalOcean Image](https://www.terraform.io/docs/providers/do/d/image.html)
@@ -14,7 +16,9 @@ These types of resources are used:
 * [DigitalOcean Tag](https://www.terraform.io/docs/providers/do/r/tag.html)
 
 ## Usage Examples
+
 Some examples can be found in this repository:
+
 * [Simple](https://github.com/terraform-digitalocean-modules/terraform-digitalocean-droplet/tree/master/examples/simple)
 * [Load Balancer](https://github.com/terraform-digitalocean-modules/terraform-digitalocean-droplet/tree/master/examples/loadbalancer)
 * [DNS](https://github.com/terraform-digitalocean-modules/terraform-digitalocean-droplet/tree/master/examples/dns)
@@ -26,6 +30,7 @@ If you're looking to try Digitalocean out, [sign up here](https://m.do.co/c/485f
 and get $100 free credit.
 
 ## Droplet Sizes
+
 A map of name to Droplet sizes exists to make specifying Droplet sizes simpler:
 
 | Name      | Droplet Size   |
@@ -43,16 +48,23 @@ A map of name to Droplet sizes exists to make specifying Droplet sizes simpler:
 See [DigitalOcean Pricing](https://www.digitalocean.com/pricing/) for costs.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.14 |
+| digitalocean | ~> 2.3.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| digitalocean | n/a |
+| digitalocean | ~> 2.3.0 |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | backups | (Optional) Boolean controlling if backups are made. Defaults to false. | `bool` | `false` | no |
 | block\_storage\_attach | (Optional) Whether to attach the volume using Terraform or not. | `bool` | `true` | no |
 | block\_storage\_count | (Optional) A count of block storage volume resources to create. | `string` | `""` | no |
